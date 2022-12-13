@@ -1,0 +1,36 @@
+ $(document).ready(function(e) {
+            //Variable
+
+            var html = ' <div class="row" id="row"><div class="form-group col"><?php include '../koneksi.php';
+                                                                                $sql = mysqli_query($conf, "SELECT bahan.nama_bahan, produk.id_bahan, produk.qty FROM produk INNER JOIN bahan ON produk.id_bahan = bahan.id_bahan WHERE id_barang = $id_barang");
+                                                                                $i = $i;
+                                                                                $data2 = mysqli_fetch_array($sql) ?><label for="qty">Bahan & Quantity</label><input type="text" name="bhn_qty<?= $i++ ?>" id="qty" class="form-control" placeholder="Masukkan bahan & quantity" style="width: 100%;" value="<?= $data2['nama_bahan'] . " - " . $data2['qty']; ?>"></div><div class="col" style="margin-top: 30px;"><a href="#" class="btn btn-danger add_item_btn" id="remove">Hapus</a></div></div>';
+            var selectedRow = (document.getElementById("tambah").value) - 1;
+
+            var maxRows = 30 - selectedRow;
+            var y = document.getElementById("tambah").value;
+            var x = 0;
+            //Add rows ke form
+            $("#add").click(function(e) {
+                if (x < maxRows) {
+                    x++;
+
+                    $("#add_more").append(html);
+                    y++;
+                    document.getElementById("tambah").value = y;
+
+                }
+
+            });
+            //Remove rows dari form
+            $("#add_more").on('click', '#remove', function(e) {
+                $(this).closest("#row").remove();
+                x--;
+                y--;
+                document.getElementById("tambah").value = y;
+            });
+
+        });
+
+
+var html = ' <div class="row" id="row"><div class="form-group col"><label for="qty">Bahan & Quantity</label><input type="text" name="bhn_qty" id="qty" class="form-control" placeholder="Masukkan bahan & quantity" style="width: 100%;" value=""></div><div class="col" style="margin-top: 30px;"><a href="#" class="btn btn-danger add_item_btn" id="remove">Hapus</a></div></div>';
